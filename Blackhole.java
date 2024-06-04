@@ -162,8 +162,11 @@ class BlackholeAndCards{
 public class Blackhole {
 
 	public static void main(String[] args) {
+		
 		int seed = (int) (Math.random()*100);
 		int AllCards = 51;
+		int CanConnect = 0;
+		
 		Deck myDeck = new Deck();
 		myDeck.shuffle(seed);
 		//myDeck.PrintDeck();
@@ -202,36 +205,51 @@ public class Blackhole {
 		//Starting the game
 		System.out.println("Game Start!!");
 		System.out.println("--------------------------------");
-		System.out.print("Choose a number of dummy(1~17) for connecting: ");
+		
 		
 		Blackhole bh = new Blackhole();
 		
 		//Game logic
-		//while(AllCards > 0  && 블랙홀에 연결할 수 있는 카드가 있다면) {}
-		try {
-			Scanner scn = new Scanner(System.in);
-			int input = scn.nextInt();
-			bh.InputExeptionCheck(Blackhole, NotBlackhole, input);
+		while(AllCards > 0 ) {
+			
+			for(int i=0; i<17; i++) {
+				if(NotBlackhole[i].numOFCards != 0) {
+					if(Math.abs(NotBlackhole[i].Cards[NotBlackhole[i].numOFCards-1].getGameValue() - Blackhole.Cards[Blackhole.numOFCards-1].getGameValue()) == 1)
+						CanConnect = 1;
+				}
+			}
+			if(CanConnect == 0) {
+				System.out.println("[You Lose]: No cards in the dummys can be connected to BlackHole!!");
+				break;
+			}
+			
+			try {
+				System.out.print("Choose a number of dummy(1~17) for connecting: ");
+				Scanner scn = new Scanner(System.in);
+				int input = scn.nextInt();
+				bh.InputExeptionCheck(Blackhole, NotBlackhole, input);
+			}
+			catch(InputRangeException e) {
+				System.err.println("Your Input is not in the range!");
+			}
+			catch(InputRuleException e) {
+				System.err.println("You cannot connect the card to BlackHole!");
+			}
 		}
-		catch(InputRangeException e) {
-			System.err.println("Your Input is not in the range!");
-		}
-		catch(InputRullException e) {
-			System.err.println("You cannot connect the card to blackhole!");
-		}
+		
 	}
 	
-	void InputExeptionCheck(BlackholeAndCards BC, NotBlackholeCards[] NBC, int input) throws InputRangeException, InputRullException{
+	void InputExeptionCheck(BlackholeAndCards BC, NotBlackholeCards[] NBC, int input) throws InputRangeException, InputRuleException{
 		int flag = 0;
 		if(input<1 || input>17) throw new InputRangeException();
-		if(Math.abs(NBC[input-1].Cards[NBC[input-1].numOFCards-1].getGameValue() - BC.Cards[BC.numOFCards-1].getGameValue()) <= 1)
+		if(Math.abs(NBC[input-1].Cards[NBC[input-1].numOFCards-1].getGameValue() - BC.Cards[BC.numOFCards-1].getGameValue()) == 1)
 			flag = 1;
-		if(flag == 0) throw new InputRullException();
+		if(flag == 0) throw new InputRuleException();
 
 		return;
 	}
 }
 
 class InputRangeException extends Exception{};
-class InputRullException extends Exception{};
+class InputRuleException extends Exception{};
 
