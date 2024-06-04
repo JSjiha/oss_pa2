@@ -31,24 +31,57 @@ https://docs.oracle.com/javase/8/docs/api/java/util/Random.html
 1. https://www.oracle.com/java/technologies/downloads/#java17 에서 x64 Installer 다운로드
 
 2. Window + R로 실행창을 열고, 실행창에 sysdm.cpl을 입력 후 enter
-
 - 고급 -> 환경변수 -> 시스템 변수 [새로 만들기] ->  변수 이름: JAVA_HOME, 변수 값: java 설치 경로
-
 - 시스템 변수 생성(이름: CLASSPATH) -> 시스템 변수 [편집] -> 새로 만들기 -> %JAVA_HOME%\bin 추가
 ```
 
-3. Java IDE(Eclipse) 설치
-4. Eclipse에서 Blackhole.java 실행
+3. Java IDE(Eclipse)를 설치한다.
+4. Eclipse에서 Blackhole.java를 실행한다.
 ```
 1. https://www.eclipse.org/downloads/download.php?file=/oomph/epp/2022-12/R/eclipse-inst-jre-win64.exe 에서 Eclipse IDE 설치
+
 2. (In Eclipse) Window -> Perspective -> Open Perspective -> Other... -> Git -> open
 - Clone a Git repository -> URl: https://github.com/JSjiha/oss_pa2, Authentication: Your Username and Password -> next -> 로컬 저장소 지정
 - Git repositories에서 우클릭 -> Import Projects -> Finish
+
 3. ctrl + F11로 Blackhole.java 실행
 ```
 
-
 ### Linux
+
+1. Java를 설치한다.(openjdk)
+2. 환경 변수를 설정한다.
+```
+1. openjdk 설치
+	sudo apt update
+	sudo apt upgrade
+	sudo apt install openjdk-11-jdk
+
+- java 버전 확인
+	java --version
+
+2. 환경변수 설정
+	sudo vim /etc/profile
+	
+- /etc/profile 파일 하단에 아래 내용 입력
+	export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64 # 본인의 Java 설치경로
+	export PATH=$JAVA_HOME/bin:$PATH
+	export CLASSPATH=$CLASSPATH:$JAVA_HOME/lib/ext:$JAVA_HOME/lib/tools.jar
+
+- 환경변수 확인 
+	source /etc/profile
+	echo $JAVA_HOME
+```
+
+3. terminal창에서 Blackhole.java를 실행한다.
+```
+1. Github에서 project clone
+	git clone https://github.com/JSjiha/oss_pa2.git
+
+2. Blackhole.java 컴파일 후 실행
+	javac Blackhole.java
+	java Blackhole
+```
 
 ### MacOS
 
