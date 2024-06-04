@@ -86,12 +86,14 @@ https://docs.oracle.com/javase/8/docs/api/java/util/Random.html
 ### MacOS
 
 # 실행 예시
-
 [게임 시작 화면]
+
 ![Blackhole -시작](https://github.com/JSjiha/oss_pa2/assets/164160018/f07ed52c-1c9d-45c1-b229-9dd42bf1aff5)
 
 
+
 [Blackhole에 연결할 카드가 없어서 지는 상황]
+
 ![Blackhole -지는 경우](https://github.com/JSjiha/oss_pa2/assets/164160018/24d9099a-7a8d-4a0d-bacd-d091af3ea341)
 
 # 코드 설명
