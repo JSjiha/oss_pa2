@@ -30,10 +30,10 @@
 '''
 1. https://www.oracle.com/java/technologies/downloads/#java17 에서 x64 Installer 다운로드
 2. Window키와 R키를 동시에 눌러 실행창을 키고, 실행창에 sysdm.cpl을 입력한 후 enter를 누룬다.
-- 고급 -> 환경변수 -> 시스템 변수의 새로 만들기 ->  변수 이름: JAVA_HOME, 변수 값: java 설치 경로
-- "CLASSPATH"라는 이름으로 시스템 변수 생성 -> 시스템 변수의 편집 -> 새로 만들기 -> %JAVA_HOME%\bin 추가
+2. 고급 -> 환경변수 -> 시스템 변수의 새로 만들기 ->  변수 이름: JAVA_HOME, 변수 값: java 설치 경로
+2. "CLASSPATH"라는 이름으로 시스템 변수 생성 -> 시스템 변수의 편집 -> 새로 만들기 -> %JAVA_HOME%\bin 추가
 3. https://www.eclipse.org/downloads/download.php?file=/oomph/epp/2022-12/R/eclipse-inst-jre-win64.exe 에서 Eclipse IDE 설치
-- File -> New -> Java Project (clone 방법 쓰기)
+3. File -> New -> Java Project (clone 방법 쓰기)
 4. ctrl + F11 로 Blackhole.java 실행
 '''
 
