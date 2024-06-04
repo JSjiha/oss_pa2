@@ -27,17 +27,26 @@ https://docs.oracle.com/javase/8/docs/api/java/util/Random.html
 
 1. Java를 설치한다.
 2. 환경변수를 설정한다.
-3. Java IDE(Eclipse)를 설치한다.
-4. Github에서 clone후 Blackhole.java실행
 ```
 1. https://www.oracle.com/java/technologies/downloads/#java17 에서 x64 Installer 다운로드
-2. Window키와 R키를 동시에 눌러 실행창을 키고, 실행창에 sysdm.cpl을 입력한 후 enter를 누룬다.
-- 고급 -> 환경변수 -> 시스템 변수의 새로 만들기 ->  변수 이름: JAVA_HOME, 변수 값: java 설치 경로
-- "CLASSPATH"라는 이름으로 시스템 변수 생성 -> 시스템 변수의 편집 -> 새로 만들기 -> %JAVA_HOME%\bin 추가
-3. https://www.eclipse.org/downloads/download.php?file=/oomph/epp/2022-12/R/eclipse-inst-jre-win64.exe 에서 Eclipse IDE 설치
-- File -> New -> Java Project (clone 방법 쓰기)
-4. ctrl + F11 로 Blackhole.java 실행
+
+2. Window + R로 실행창을 열고, 실행창에 sysdm.cpl을 입력 후 enter
+
+- 고급 -> 환경변수 -> 시스템 변수 [새로 만들기] ->  변수 이름: JAVA_HOME, 변수 값: java 설치 경로
+
+- 시스템 변수 생성(이름: CLASSPATH) -> 시스템 변수 [편집] -> 새로 만들기 -> %JAVA_HOME%\bin 추가
 ```
+
+3. Java IDE(Eclipse) 설치
+4. Eclipse에서 Blackhole.java 실행
+```
+1. https://www.eclipse.org/downloads/download.php?file=/oomph/epp/2022-12/R/eclipse-inst-jre-win64.exe 에서 Eclipse IDE 설치
+2. (In Eclipse) Window -> Perspective -> Open Perspective -> Other... -> Git -> open
+- Clone a Git repository -> URl: https://github.com/JSjiha/oss_pa2, Authentication: Your Username and Password -> next -> 로컬 저장소 지정
+- Git repositories에서 우클릭 -> Import Projects -> Finish
+3. ctrl + F11로 Blackhole.java 실행
+```
+
 
 ### Linux
 
@@ -48,3 +57,5 @@ https://docs.oracle.com/javase/8/docs/api/java/util/Random.html
 # 코드 설명
 
 # TODO List
+* 점수 계산하기
+* GUI 구현하기
