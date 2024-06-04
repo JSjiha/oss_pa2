@@ -117,7 +117,8 @@ class NotBlackholeCards {
 	}
 	
 	public void printAllCards() {
-		if(numOFCards == 0) throw new IllegalStateException("There are no cards in the non-blackhole!!");
+		if(numOFCards == 0) System.out.println("No card");
+		else if(numOFCards == 1) System.out.println("Top: " + Cards[numOFCards-1].getRealValue() + Cards[numOFCards-1].getRealSuit());
 		else {
 			
 			System.out.print("Top: " + Cards[numOFCards-1].getRealValue() + Cards[numOFCards-1].getRealSuit());
@@ -222,6 +223,7 @@ public class Blackhole {
 				System.out.println("[You Lose]: No cards in the dummys can be connected to BlackHole!!");
 				break;
 			}
+			CanConnect = 0;
 			
 			try {
 				System.out.print("Choose a number of dummy(1~17) for connecting: ");
@@ -229,7 +231,11 @@ public class Blackhole {
 				int input = scn.nextInt();
 				bh.InputExeptionCheck(Blackhole, NotBlackhole, input);
 				
-				System.err.println("Connecting " + NotBlackhole[input-1].Cards[NotBlackhole[input-1].numOFCards-1].getRealValue() + NotBlackhole[input-1].Cards[NotBlackhole[input-1].numOFCards-1].getRealSuit() + " to BlackHole.");
+				System.out.print("Connecting ");
+				System.out.print(NotBlackhole[input-1].Cards[NotBlackhole[input-1].numOFCards-1].getRealValue() + NotBlackhole[input-1].Cards[NotBlackhole[input-1].numOFCards-1].getRealSuit());
+				System.out.println(" to BlackHole...");
+				System.out.println("");
+				
 				Blackhole.Cards[Blackhole.numOFCards] = NotBlackhole[input-1].Cards[NotBlackhole[input-1].numOFCards-1];
 				Blackhole.numOFCards++;
 				NotBlackhole[input-1].numOFCards--;
@@ -247,21 +253,30 @@ public class Blackhole {
 				System.out.println("--------------------------------");
 				System.out.println("");
 			}
-			
+			catch(NoCardException e) {
+				System.err.println("[Try again]: There are no card in the dummy!");
+				System.err.println("");
+			}
 			catch(InputRangeException e) {
-				System.err.println("Your Input is not in the range!");
+				System.err.println("[Try again]: Your Input is not in the range!");
+				System.err.println("");
 			}
 			catch(InputRuleException e) {
-				System.err.println("You cannot connect the card to BlackHole!");
+				System.err.println("[Try again]: You cannot connect the card to BlackHole!");
+				System.err.println("");
 			}
+			
+			if(AllCards == 0)
+				System.out.println("[You Win]: All cards are connected to BlackHole!!");
 		}
 		
 	}
 	
-	void InputExeptionCheck(BlackholeAndCards BC, NotBlackholeCards[] NBC, int input) throws InputRangeException, InputRuleException{
+	void InputExeptionCheck(BlackholeAndCards BC, NotBlackholeCards[] NBC, int input) throws NoCardException, InputRangeException, InputRuleException{
 		int flag = 0;
-		if(input<1 || input>17) throw new InputRangeException();
-		if(Math.abs(NBC[input-1].Cards[NBC[input-1].numOFCards-1].getGameValue() - BC.Cards[BC.numOFCards-1].getGameValue()) == 1)
+		if(input < 1 || input > 17) throw new InputRangeException();
+		if(NBC[input-1].numOFCards == 0) throw new NoCardException();
+		else if(Math.abs(NBC[input-1].Cards[NBC[input-1].numOFCards-1].getGameValue() - BC.Cards[BC.numOFCards-1].getGameValue()) == 1)
 			flag = 1;
 		if(flag == 0) throw new InputRuleException();
 		return;
@@ -270,4 +285,5 @@ public class Blackhole {
 
 class InputRangeException extends Exception{};
 class InputRuleException extends Exception{};
+class NoCardException extends Exception{};
 
