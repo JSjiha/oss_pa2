@@ -87,6 +87,10 @@ https://docs.oracle.com/javase/8/docs/api/java/util/Random.html
 
 # 실행 예시
 
+![Blackhole -시작](https://github.com/JSjiha/oss_pa2/assets/164160018/f07ed52c-1c9d-45c1-b229-9dd42bf1aff5)
+
+![Blackhole -지는 경우](https://github.com/JSjiha/oss_pa2/assets/164160018/24d9099a-7a8d-4a0d-bacd-d091af3ea341)
+
 # 코드 설명
 
 # TODO List
