@@ -12,8 +12,10 @@ class Card{
 	
 	public int getGameValue() {
 		int result;
-		if(this.value == 'A') result = 11;
-		else if(this.value == 'J' || this.value == 'Q' || this.value == 'K') result = 10;
+		if(this.value == 'A') result = 1;
+		else if(this.value == 'J') result = 11;
+		else if(this.value == 'Q') result = 12;
+		else if(this.value == 'K') result = 13;
 		else result= this.value;
 		return result;
 	}
@@ -41,7 +43,7 @@ class Card{
 
 class Deck{
 	private Card[] deck;
-	private int cardLeft;
+	private int cardsLeft;
 	
 	Deck(){
 		int index = 0;
@@ -77,20 +79,20 @@ class Deck{
 	
 	public void shuffle(int seed) {
 		Random random = new Random(seed);
-		for(int i = 0; i < deck.length; i++) {
+		for(int i = deck.length-1; i > 0; i--) {
 			int rand = (int)(random.nextInt(i+1));
 			Card temp = deck[i];
 			deck[i] = deck[rand];
 			deck[rand] = temp;
 		}
-		cardLeft = 52;
+		cardsLeft = 52;
 	}
 	
 	public Card dealCard() {
-		if(cardLeft == 0)
+		if(cardsLeft == 0)
 			throw new IllegalStateException("There are no cards in the deck!!");
-		cardLeft--;
-		return deck[cardLeft+1];
+		cardsLeft--;
+		return deck[cardsLeft];
 	}
 	
 	public void PrintDeck() {
@@ -102,6 +104,47 @@ class Deck{
 	}
 }
 
+class NotBlackholeCards {
+	public Card[] Cards;
+	public int numOFCards;
+	
+	NotBlackholeCards(){
+		Cards = new Card[3];
+		for(int i=0; i<3; i++)
+			Cards[i] = new Card();
+		numOFCards = 0;
+	}
+	
+	public void printAllCards() {
+		if(numOFCards == 0) throw new IllegalStateException("There are no cards in the non-blackhole!!");
+		else {
+			
+			System.out.print("Top: " + Cards[numOFCards-1].getRealValue() + Cards[numOFCards-1].getRealSuit());
+			if(Cards[numOFCards-1].getGameValue() == 10) System.out.print(", Under: ");
+			else System.out.print(",  Under: ");
+			
+			for(int i=numOFCards-2; i>=0; i--) {
+				System.out.print(Cards[i].getRealValue() + Cards[i].getRealSuit());
+				if(i != 0) {
+					if(Cards[i].getGameValue() == 10) System.out.print(", ");
+					else System.out.print(",  ");
+				}
+				else System.out.println("");
+
+			}
+		}
+	}
+}
+
+class BlackholeCard extends Card{
+	
+	public BlackholeCard() {}
+
+	public void setBlackhole(Card card) {
+		this.value = card.value;
+		this.suit = card.suit;
+	}
+}
 
 public class Blackhole {
 
@@ -109,7 +152,31 @@ public class Blackhole {
 		int seed = (int) (Math.random()*100);
 		Deck myDeck = new Deck();
 		myDeck.shuffle(seed);
-		myDeck.PrintDeck();
+		//myDeck.PrintDeck();
+
+		NotBlackholeCards[] NotBlackhole = new NotBlackholeCards[17];
+		BlackholeCard Blackhole = new BlackholeCard();
+		
+		for(int i=0; i<17; i++){
+			NotBlackhole[i] = new NotBlackholeCards();
+			for(int k=0; k<3; k++){
+				NotBlackhole[i].Cards[k] = myDeck.dealCard();
+				NotBlackhole[i].numOFCards++;
+			}
+		}
+		Blackhole.setBlackhole(myDeck.dealCard());
+		
+		System.out.println("Game Start!!");
+		System.out.println("");
+		System.out.println("--------------------------------");
+		System.out.println("Blackhole: " + Blackhole.getRealValue() + Blackhole.getRealSuit());
+		for(int i=0; i<17; i++) {
+			if(i<9) System.out.print((i+1) + ":  ");
+			else System.out.print((i+1) + ": ");
+			NotBlackhole[i].printAllCards();
+		}
+		System.out.println("--------------------------------");
+		System.out.println("");
 	}
 
 }
