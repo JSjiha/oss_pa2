@@ -13,6 +13,9 @@ https://docs.oracle.com/javase%2F8%2Fdocs%2Fapi%2F%2F/java/util/Scanner.html
 [2] Java Random
 https://docs.oracle.com/javase/8/docs/api/java/util/Random.html
 
+[3] Game Rule
+https://namu.wiki/w/%EB%B8%94%EB%9E%99%ED%99%80(%EA%B2%8C%EC%9E%84)
+
 # 지원 Operating Systems 및 실행 방법
 
 ## 지원 Operating Systems
@@ -92,11 +95,35 @@ https://docs.oracle.com/javase/8/docs/api/java/util/Random.html
 
 
 
+
+
+
 [Blackhole에 연결할 카드가 없어서 지는 상황]
 
 ![Blackhole -지는 경우](https://github.com/JSjiha/oss_pa2/assets/164160018/24d9099a-7a8d-4a0d-bacd-d091af3ea341)
 
+
 # 코드 설명
+## class Card
+ - Description: 카드의 정보를 가지고 있다.
+	value: A, 2, 3, ... , J, Q, K
+	suit: c(clover), h(heart) s(spade) d(diamond)
+
+## class Deck
+ - Description: 카드 52개를 저장한다.
+	1. public void shuffle(int seed): seed값을 받아 랜덤으로 댁을 섞는다.
+	2. public Card dealCard(): 카드를 한장씩 나눠준다.
+
+## class NotBlackholeCards
+ - Description: 블랙홀이 아닌 카드들의 집합이다.
+
+## class BlackholeAndCards
+ - Description: 블랙홀 카드와 그 뒤로 연결될 공간을 만든다.
+
+## main
+ - 입력한 숫자(1~17)에 대하여 해당 더미의 Top에 있는 카드가 블랙홀과 연결될 수 있는지를 확인한다.
+ - 연결할 수 있는 어떤 경우의 수도 없다면 게임을 패배한다.
+ - 모든 카드가 연결되면 게임을 승리한다.
 
 # TODO List
 * 점수 계산하기
