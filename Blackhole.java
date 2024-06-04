@@ -1,4 +1,5 @@
 import java.util.Random;
+import java.util.Scanner;
 
 class Card{
 	public int value;
@@ -136,13 +137,25 @@ class NotBlackholeCards {
 	}
 }
 
-class BlackholeCard extends Card{
+class BlackholeAndCards{
+	public Card[] Cards;
+	public int numOFCards;
 	
-	public BlackholeCard() {}
-
-	public void setBlackhole(Card card) {
-		this.value = card.value;
-		this.suit = card.suit;
+	BlackholeAndCards() {
+		Cards = new Card[52];
+		for(int i=0; i<52; i++)
+			Cards[i] = new Card();
+		numOFCards = 0;
+	}
+	
+	public void printAllCards() {
+		System.out.println("Blackhole: ");
+		for(int i=0; i<numOFCards; i++) {
+			System.out.print(Cards[i].getRealValue() + Cards[i].getRealSuit());
+			if(i != numOFCards-1) System.out.print(", ");
+			else System.out.println("");	
+		}
+		System.out.println("");
 	}
 }
 
@@ -150,12 +163,14 @@ public class Blackhole {
 
 	public static void main(String[] args) {
 		int seed = (int) (Math.random()*100);
+		int AllCards = 51;
 		Deck myDeck = new Deck();
 		myDeck.shuffle(seed);
 		//myDeck.PrintDeck();
 
+		//Setting the Game
 		NotBlackholeCards[] NotBlackhole = new NotBlackholeCards[17];
-		BlackholeCard Blackhole = new BlackholeCard();
+		BlackholeAndCards Blackhole = new BlackholeAndCards();
 		
 		for(int i=0; i<17; i++){
 			NotBlackhole[i] = new NotBlackholeCards();
@@ -164,12 +179,17 @@ public class Blackhole {
 				NotBlackhole[i].numOFCards++;
 			}
 		}
-		Blackhole.setBlackhole(myDeck.dealCard());
+		for(int i=0; i<52; i++)
+			Blackhole.Cards[i] = new Card();
+		Blackhole.Cards[0] = myDeck.dealCard();
+		Blackhole.numOFCards++;
 		
-		System.out.println("Game Start!!");
+		System.out.println("Game Setting");
 		System.out.println("");
 		System.out.println("--------------------------------");
-		System.out.println("Blackhole: " + Blackhole.getRealValue() + Blackhole.getRealSuit());
+		Blackhole.printAllCards();
+		
+		System.out.println("[Dummy]"); 
 		for(int i=0; i<17; i++) {
 			if(i<9) System.out.print((i+1) + ":  ");
 			else System.out.print((i+1) + ": ");
@@ -177,9 +197,41 @@ public class Blackhole {
 		}
 		System.out.println("--------------------------------");
 		System.out.println("");
+		
+		
+		//Starting the game
+		System.out.println("Game Start!!");
+		System.out.println("--------------------------------");
+		System.out.print("Choose a number of dummy(1~17) for connecting: ");
+		
+		Blackhole bh = new Blackhole();
+		
+		//Game logic
+		//while(AllCards > 0  && 블랙홀에 연결할 수 있는 카드가 있다면) {}
+		try {
+			Scanner scn = new Scanner(System.in);
+			int input = scn.nextInt();
+			bh.InputExeptionCheck(Blackhole, NotBlackhole, input);
+		}
+		catch(InputRangeException e) {
+			System.err.println("Your Input is not in the range!");
+		}
+		catch(InputRullException e) {
+			System.err.println("You cannot connect the card to blackhole!");
+		}
 	}
+	
+	void InputExeptionCheck(BlackholeAndCards BC, NotBlackholeCards[] NBC, int input) throws InputRangeException, InputRullException{
+		int flag = 0;
+		if(input<1 || input>17) throw new InputRangeException();
+		if(Math.abs(NBC[input-1].Cards[NBC[input-1].numOFCards-1].getGameValue() - BC.Cards[BC.numOFCards-1].getGameValue()) <= 1)
+			flag = 1;
+		if(flag == 0) throw new InputRullException();
 
+		return;
+	}
 }
 
-
+class InputRangeException extends Exception{};
+class InputRullException extends Exception{};
 
